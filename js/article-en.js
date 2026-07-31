@@ -16,8 +16,6 @@
         container.classList.remove('article-device-pending');
     })();
 
-
-
 (function () {
     const uaMobile = Boolean(navigator.userAgentData && navigator.userAgentData.mobile);
     const legacyPhone = /Android.+Mobile|iPhone|iPod|Windows Phone|IEMobile|Opera Mini/i.test(navigator.userAgent || '');
@@ -262,7 +260,6 @@
             const visual = getMorphVisual(group);
             const closeButton = getMorphCloseButton(group);
             const edgeRect = edge.getBoundingClientRect();
-            container.classList.add('cta-morph-edge-active');
             const visualGeometry = getElementToEdgeGeometry(visual, edgeRect);
             const closeGeometry = closeButton ? getElementToEdgeGeometry(closeButton, edgeRect) : null;
 
@@ -288,14 +285,24 @@
                     ], { duration:620 }) : Promise.resolve()
                 ]);
 
-            Promise.all([
-                contentMorph,
-                runCtaMorph(edge, [
+            const edgeMorph = isDesktopPack
+                ? (container.classList.add('cta-morph-edge-active'), runCtaMorph(edge, [
                     { opacity:0, scale:'.86', offset:0 },
                     { opacity:.28, scale:'.94', offset:.46 },
                     { opacity:1, scale:'1', offset:1 }
-                ], { duration:620, easing:'ease-out', fill:'both' })
-            ]).finally(function () {
+                ], { duration:620, easing:'ease-out', fill:'both' }))
+                : new Promise(function (resolve) {
+                    window.setTimeout(function () {
+                        container.classList.add('cta-morph-edge-active');
+                        runCtaMorph(edge, [
+                            { opacity:0, scale:'.86', offset:0 },
+                            { opacity:.28, scale:'.94', offset:.46 },
+                            { opacity:1, scale:'1', offset:1 }
+                        ], { duration:360, easing:'ease-out', fill:'both' }).then(resolve);
+                    }, 520);
+                });
+
+            Promise.all([contentMorph, edgeMorph]).finally(function () {
                 container.classList.add('cta-is-hidden');
                 container.classList.remove('cta-morph-running', 'cta-morph-edge-active');
             });
@@ -378,14 +385,16 @@
                 : Promise.all([
                     runImportantMorph(visual, [
                         { dx:visualGeometry.dx, dy:visualGeometry.dy, scale:visualGeometry.scale, opacity:0, offset:0 },
-                        { dx:visualGeometry.dx * .68, dy:visualGeometry.dy * .68, scale:.42, opacity:.78, offset:.34 },
-                        { dx:0, dy:0, scale:1.035, opacity:1, offset:.84 },
+                        { dx:visualGeometry.dx, dy:visualGeometry.dy, scale:visualGeometry.scale, opacity:0, offset:.20 },
+                        { dx:visualGeometry.dx * .68, dy:visualGeometry.dy * .68, scale:.42, opacity:.78, offset:.47 },
+                        { dx:0, dy:0, scale:1.035, opacity:1, offset:.87 },
                         { dx:0, dy:0, scale:1, opacity:1, offset:1 }
                     ], { duration:620, opening:true }),
                     closeButton ? runImportantMorph(closeButton, [
                         { dx:closeGeometry.dx, dy:closeGeometry.dy, scale:closeGeometry.scale, opacity:0, offset:0 },
-                        { dx:closeGeometry.dx * .68, dy:closeGeometry.dy * .68, scale:.42, opacity:.78, offset:.34 },
-                        { dx:0, dy:0, scale:1.035, opacity:1, offset:.84 },
+                        { dx:closeGeometry.dx, dy:closeGeometry.dy, scale:closeGeometry.scale, opacity:0, offset:.20 },
+                        { dx:closeGeometry.dx * .68, dy:closeGeometry.dy * .68, scale:.42, opacity:.78, offset:.47 },
+                        { dx:0, dy:0, scale:1.035, opacity:1, offset:.87 },
                         { dx:0, dy:0, scale:1, opacity:1, offset:1 }
                     ], { duration:620, opening:true }) : Promise.resolve()
                 ]);
@@ -536,6 +545,7 @@
             container.classList.remove('cta-is-hidden');
             const wrapper = container.querySelector('.article-floating-cta-wrapper');
             if (wrapper) wrapper.classList.remove('is-minimized');
+            container.classList.add('cta-desktop-ready');
         });
         try {
             sessionStorage.removeItem('mehdirad-cta-hidden');
@@ -579,8 +589,6 @@
   }, { once: true, passive: true });
 
 })();
-
-
 
 (function(){
     function updateFittingTables(){
