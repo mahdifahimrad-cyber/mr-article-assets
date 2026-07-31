@@ -1,0 +1,30 @@
+{
+  "README.md": {
+    "bytes": 540,
+    "sha256": "1f4a416752b03fbf63b8b9855d675e8efcf82a9d84a3999feb15902d07c70a87"
+  },
+  "css/article-en.css": {
+    "bytes": 125196,
+    "sha256": "5bf26d7156c95da563bc8db245975205d755ad738f35ca1f1ee87b51084f808c"
+  },
+  "css/article-fa.css": {
+    "bytes": 134780,
+    "sha256": "d4a30d0ae6ec6e3697d1ad54916c3a6ce56d1e11982627999c304cec95bdf47a"
+  },
+  "js/article-en.js": {
+    "bytes": 27768,
+    "sha256": "4aae83b37fd5f03e52183d2496f7d2c5550223ba732e064d5282644b36d7a4a2"
+  },
+  "js/article-fa.js": {
+    "bytes": 30020,
+    "sha256": "9f9c98051a9c9f1e553a459535926408cf39442af93a486974100c10aa893a63"
+  },
+  "templates/article-template-en-external.html": {
+    "bytes": 37893,
+    "sha256": "3471437b0b086876e765ff0037f3663ec3515f263008bc32e62e3550625cdf8a"
+  },
+  "templates/article-template-fa-external.html": {
+    "bytes": 42884,
+    "sha256": "8ed2bd5b4f46b9361d6daa7cdf318d55a3b2e3e10056479e572d103503bddd68"
+  }
+}
