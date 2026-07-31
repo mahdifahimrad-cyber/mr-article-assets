@@ -3729,3 +3729,141 @@
     pointer-events: none !important;
     will-change: transform, opacity !important;
 }
+/* =========================================================
+   FINAL PERSIAN RTL OVERRIDE
+   This stylesheet is for Persian articles only.
+   Do not require lang/dir attributes on the HTML container.
+   ========================================================= */
+.article-container,
+.article-container .article-shell,
+.article-container .article-hero,
+.article-container .article-introduction,
+.article-container .article-introduction-card,
+.article-container .article-main,
+.article-container .article-section,
+.article-container .article-card,
+.article-container .article-warning,
+.article-container .article-key-takeaways,
+.article-container .article-conclusion,
+.article-container .article-sources,
+.article-container .article-faq-item,
+.article-container .article-faq-question,
+.article-container .article-faq-answer {
+  direction: rtl !important;
+  text-align: right !important;
+}
+
+.article-container .article-title,
+.article-container .article-section-heading,
+.article-container .article-subheading,
+.article-container .article-paragraph,
+.article-container .article-list,
+.article-container .article-list-item,
+.article-container .article-toc-title,
+.article-container .article-toc-link {
+  direction: rtl !important;
+  text-align: right !important;
+}
+
+.article-container .article-section-heading::after {
+  right: 0 !important;
+  left: auto !important;
+}
+
+.article-container .article-list-item {
+  padding-right: 30px !important;
+  padding-left: 0 !important;
+}
+
+.article-container .article-list-item::before {
+  right: 2px !important;
+  left: auto !important;
+}
+
+.article-container .article-toc-link {
+  padding-right: 45px !important;
+  padding-left: 16px !important;
+  justify-content: flex-start !important;
+}
+
+.article-container .article-toc-link::before {
+  right: 18px !important;
+  left: auto !important;
+}
+
+.article-container .article-toc-link::after {
+  right: auto !important;
+  left: 0 !important;
+}
+
+.article-container .article-toc-title::after {
+  right: 50px !important;
+  left: auto !important;
+}
+
+.article-container .article-faq-question {
+  padding-right: 24px !important;
+  padding-left: 58px !important;
+}
+
+.article-container .article-faq-question::after {
+  left: 22px !important;
+  right: auto !important;
+}
+
+.article-container .article-section:not(.article-conclusion) > .article-paragraph,
+.article-container .article-section:not(.article-conclusion) > .article-list,
+.article-container :is(.article-step-card,.article-life-stage-card,.article-highlight,.article-warning,.article-key-takeaways,.article-faq-answer) > .article-paragraph,
+.article-container :is(.article-step-card,.article-life-stage-card,.article-highlight,.article-warning,.article-key-takeaways,.article-faq-answer) > .article-list,
+.article-container .article-paragraph:has(+ .article-list),
+.article-container .article-paragraph + .article-list {
+  margin-right: 18px !important;
+  margin-left: 0 !important;
+}
+
+.article-container .article-dependent-intro {
+  margin-right: 18px !important;
+  margin-left: 0 !important;
+}
+
+.article-container .article-dependent-options {
+  margin-right: 36px !important;
+  margin-left: 0 !important;
+}
+
+@media (max-width: 680px) {
+  .article-container .article-toc-link {
+    padding-right: 42px !important;
+    padding-left: 13px !important;
+  }
+
+  .article-container .article-toc-link::before {
+    right: 16px !important;
+    left: auto !important;
+  }
+
+  .article-container .article-toc-title::after {
+    right: 46px !important;
+    left: auto !important;
+  }
+
+  .article-container .article-section:not(.article-conclusion) > .article-paragraph,
+  .article-container .article-section:not(.article-conclusion) > .article-list,
+  .article-container :is(.article-step-card,.article-life-stage-card,.article-highlight,.article-warning,.article-key-takeaways,.article-faq-answer) > .article-paragraph,
+  .article-container :is(.article-step-card,.article-life-stage-card,.article-highlight,.article-warning,.article-key-takeaways,.article-faq-answer) > .article-list,
+  .article-container .article-paragraph:has(+ .article-list),
+  .article-container .article-paragraph + .article-list {
+    margin-right: 10px !important;
+    margin-left: 0 !important;
+  }
+
+  .article-container .article-dependent-intro {
+    margin-right: 10px !important;
+    margin-left: 0 !important;
+  }
+
+  .article-container .article-dependent-options {
+    margin-right: 20px !important;
+    margin-left: 0 !important;
+  }
+}
