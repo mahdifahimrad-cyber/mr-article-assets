@@ -2937,11 +2937,11 @@
 }
 
 @media (max-width:1100px){
-  .article-container[lang="fa"][dir="rtl"]:not(.cta-morph-running) .article-mobile-cta{
+  /*.article-container[lang="fa"][dir="rtl"]:not(.cta-morph-running):not(.cta-is-hidden) .article-mobile-cta{
     right:8px !important;
     left:auto !important;
     transform:none !important;
-  }
+  }*/
 
   .article-container[lang="fa"][dir="rtl"] .article-mobile-cta-close{
     left:-10px !important;
