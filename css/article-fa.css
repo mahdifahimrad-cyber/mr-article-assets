@@ -3379,6 +3379,17 @@
                 transition: none !important;
             }
         }
+        /* DESKTOP INITIAL-PAINT GATE — prevents the CTA panel flashing open before JS is ready. */
+        @media (min-width:1101px){
+          .article-container:not(.cta-desktop-ready) .article-floating-cta-wrapper{
+            opacity:0 !important;
+            visibility:hidden !important;
+            pointer-events:none !important;
+            transition:none !important;
+            animation:none !important;
+          }
+        }
+
         /* DESKTOP-ONLY MORPH PREPARATION — prevents any legacy instant-open frame.
           Mobile/tablet rules are intentionally untouched. */
         @media (min-width:1101px){
@@ -3391,11 +3402,6 @@
             animation:none !important;
           }
         }
-
-
-    
-
-
 
 /* =========================================================
    REFERENCES SECTION ONLY
