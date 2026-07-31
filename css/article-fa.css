@@ -76,7 +76,32 @@
           line-height: 1.5 !important;
           letter-spacing: 0.01em !important; text-wrap: balance;
         } .article-container .article-introduction { position: relative !important; z-index: 2 !important; max-width: 960px !important; margin: -28px auto 0 !important; padding: 0 40px !important; }
-        .article-container .article-introduction-card { padding: 36px 40px !important; background: rgba(255, 255, 255, 0.98) !important; border: 1px solid rgba(216, 229, 238, 0.9) !important; border-radius: 22px !important; box-shadow: 0 22px 60px rgba(15, 54, 82, 0.12) !important; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); } .article-container .article-introduction-card p { margin: 0 0 20px !important; color: #263746 !important; font-size: 1.05rem !important; } .article-container .article-introduction-card p:last-child { margin-bottom: 0 !important; } .article-container .article-main { padding: 54px 72px 78px !important; color: #263746 !important; background: #ffffff !important; } .article-container .article-toc { scroll-margin-top: 130px; margin-bottom: 58px !important; padding: 34px 36px !important; background: linear-gradient(135deg, rgba(234, 245, 252, 0.9), rgba(246, 249, 251, 0.96)) !important; border: 1px solid #d7e8f3 !important; border-radius: 22px !important; } .article-container .article-toc-title { margin: 0 0 20px !important; color: #0b2942 !important; font-size: 1.55rem !important; font-weight: 750 !important; line-height: 1.25 !important; letter-spacing: -0.025em !important; } .article-container .article-toc-list { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 10px 22px !important; margin: 0 !important; padding: 0 !important; list-style: none !important; } .article-container .article-toc-item { margin: 0 !important; padding: 0 !important; list-style: none !important; } .article-container .article-toc-link { display: flex !important; align-items: center !important; min-height: 44px !important; padding: 9px 12px !important; color: #123b5d !important; -webkit-text-fill-color: #123b5d !important; font-size: 0.96rem !important; font-weight: 650 !important; line-height: 1.4 !important; text-decoration: none !important; border-radius: 12px !important; transition: background-color 0.22s ease, color 0.22s ease, transform 0.22s ease !important; } .article-container .article-toc-link::before { content: "" !important; flex: 0 0 auto !important; width: 7px !important; height: 7px !important; margin-right: 11px !important; background: #1773b0 !important; border-radius: 999px !important; box-shadow: 0 0 0 5px rgba(23, 115, 176, 0.1) !important; } .article-container .article-toc-link:hover, .article-container .article-toc-link:focus-visible { color: #1773b0 !important; -webkit-text-fill-color: #1773b0 !important; background: rgba(255, 255, 255, 0.78) !important; transform: translateX(3px) !important; outline: none !important; } .article-container .article-section, .article-container .article-anchor { scroll-margin-top: 130px; } .article-container .article-section { margin: 0 0 62px !important; color: #263746 !important; } .article-container .article-section:last-child { margin-bottom: 0 !important; } .article-container .article-section-heading { position: relative !important; margin: 0 0 24px !important; padding-bottom: 18px !important; color: #0b2942 !important; -webkit-text-fill-color: #0b2942 !important; font-size: clamp(1.75rem, 3vw, 2.55rem) !important; font-weight: 770 !important; line-height: 1.16 !important; letter-spacing: -0.035em !important; text-wrap: balance; } .article-container .article-section-heading::after { content: "" !important; position: absolute !important; bottom: 0 !important; left: 0 !important; width: 68px !important; height: 4px !important; background: linear-gradient(90deg, #1773b0, #74c5e8) !important; border-radius: 999px !important; } .article-container .article-subheading { scroll-margin-top: 130px; margin: 30px 0 16px !important; color: #123b5d !important; -webkit-text-fill-color: #123b5d !important; font-size: clamp(1.25rem, 2vw, 1.55rem) !important; font-weight: 740 !important; line-height: 1.3 !important; letter-spacing: -0.02em !important; } .article-container .article-paragraph { margin: 0 0 22px !important; color: #263746 !important; -webkit-text-fill-color: #263746 !important; } .article-container .article-list { margin: 30px 0 22px !important; padding: 0 !important; list-style: none !important; } .article-container .article-list-item { position: relative !important; margin: 0 0 11px !important; padding-left: 30px !important; color: #263746 !important; -webkit-text-fill-color: #263746 !important; list-style: none !important; } .article-container .article-list-item::before { content: "" !important; position: absolute !important; top: 0.72em !important; left: 2px !important; width: 9px !important; height: 9px !important; background: linear-gradient(135deg, #1773b0, #64bee5) !important; border-radius: 999px !important; box-shadow: 0 0 0 5px rgba(23, 115, 176, 0.08) !important; transform: translateY(-50%) !important; } .article-container .article-back-row { margin: 26px 0 0 !important; } .article-container .article-inline-back-link { display: inline-flex !important; align-items: center !important; min-height: 38px !important; padding: 7px 13px !important; color: #123b5d !important; -webkit-text-fill-color: #123b5d !important; font-size: 0.82rem !important; font-weight: 680 !important; line-height: 1.3 !important; text-decoration: none !important; background: #f6f9fb !important; border: 1px solid #d7e4ec !important; border-radius: 999px !important; } .article-container .article-inline-back-link:hover, .article-container .article-inline-back-link:focus-visible { color: #1773b0 !important; -webkit-text-fill-color: #1773b0 !important; background: #ffffff !important; outline: none !important; } .article-container .table-block { width: 100% !important; margin: 32px 0 !important; } .article-container .table-wrapper { width: 100% !important; max-width: 100% !important; overflow-x: auto !important; overflow-y: hidden !important; background: #ffffff !important; border: 1px solid #b9c8d4 !important; border-radius: 18px !important; box-shadow: 0 10px 30px rgba(15, 54, 82, 0.08) !important; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: #9db4c5 #eef3f7; isolation: isolate !important; } .article-container .table-wrapper::-webkit-scrollbar { height: 8px !important; } .article-container .table-wrapper::-webkit-scrollbar-track { background: #eef3f7 !important; border-radius: 999px !important; } .article-container .table-wrapper::-webkit-scrollbar-thumb { background: #9db4c5 !important; border-radius: 999px !important; }
+        .article-container .article-introduction-card { padding: 36px 40px !important; background: rgba(255, 255, 255, 0.98) !important; border: 1px solid rgba(216, 229, 238, 0.9) !important; border-radius: 22px !important; box-shadow: 0 22px 60px rgba(15, 54, 82, 0.12) !important; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); } .article-container .article-introduction-card p { margin: 0 0 20px !important; color: #263746 !important; font-size: 1.05rem !important; } .article-container .article-introduction-card p:last-child { margin-bottom: 0 !important; } .article-container .article-main { padding: 54px 72px 78px !important; color: #263746 !important; background: #ffffff !important; } .article-container .article-toc { scroll-margin-top: 130px; margin-bottom: 58px !important; padding: 34px 36px !important; background: linear-gradient(135deg, rgba(234, 245, 252, 0.9), rgba(246, 249, 251, 0.96)) !important; border: 1px solid #d7e8f3 !important; border-radius: 22px !important; } .article-container .article-toc-title { margin: 0 0 20px !important; color: #0b2942 !important; font-size: 1.55rem !important; font-weight: 750 !important; line-height: 1.25 !important; letter-spacing: -0.025em !important; } .article-container .article-toc-list { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 10px 22px !important; margin: 0 !important; padding: 0 !important; list-style: none !important; } .article-container .article-toc-item { margin: 0 !important; padding: 0 !important; list-style: none !important; } .article-container .article-toc-link { display: flex !important; align-items: center !important; min-height: 44px !important; padding: 9px 12px !important; color: #123b5d !important; -webkit-text-fill-color: #123b5d !important; font-size: 0.96rem !important; font-weight: 650 !important; line-height: 1.4 !important; text-decoration: none !important; border-radius: 12px !important; transition: background-color 0.22s ease, color 0.22s ease, transform 0.22s ease !important; } .article-container .article-toc-link::before { content: "" !important; flex: 0 0 auto !important; width: 7px !important; height: 7px !important; margin-right: 11px !important; background: #1773b0 !important; border-radius: 999px !important; box-shadow: 0 0 0 5px rgba(23, 115, 176, 0.1) !important; } .article-container .article-toc-link:hover, .article-container .article-toc-link:focus-visible { color: #1773b0 !important; -webkit-text-fill-color: #1773b0 !important; background: rgba(255, 255, 255, 0.78) !important; transform: translateX(3px) !important; outline: none !important; } .article-container .article-section, .article-container .article-anchor { scroll-margin-top: 130px; } .article-container .article-section { margin: 0 0 62px !important; color: #263746 !important; } .article-container .article-section:last-child { margin-bottom: 0 !important; } .article-container .article-section-heading { position: relative !important; margin: 0 0 24px !important; padding-bottom: 18px !important; color: #0b2942 !important; -webkit-text-fill-color: #0b2942 !important; font-size: clamp(1.75rem, 3vw, 2.55rem) !important; font-weight: 770 !important; line-height: 1.16 !important; letter-spacing: -0.035em !important; text-wrap: balance; } .article-container .article-section-heading::after { content: "" !important; position: absolute !important; bottom: 0 !important; left: 0 !important; width: 68px !important; height: 4px !important; background: linear-gradient(90deg, #1773b0, #74c5e8) !important; border-radius: 999px !important; } .article-container .article-subheading { scroll-margin-top: 130px; margin: 30px 0 16px !important; color: #123b5d !important; -webkit-text-fill-color: #123b5d !important; font-size: clamp(1.25rem, 2vw, 1.55rem) !important; font-weight: 740 !important; line-height: 1.3 !important; letter-spacing: -0.02em !important; } .article-container .article-paragraph { margin: 0 0 22px !important; color: #263746 !important; -webkit-text-fill-color: #263746 !important; } .article-container .article-list { margin: 30px 0 22px !important; padding: 0 !important; list-style: none !important; } 
+        .article-container .article-list-item { 
+          position: relative !important; 
+          margin: 0 0 11px !important; 
+          padding-right: 30px !important; 
+          padding-left: 0 !important; 
+          color: #263746 !important; 
+          -webkit-text-fill-color: #263746 !important; 
+          list-style: none !important; 
+        } 
+        .article-container 
+        .article-list-item::before { 
+          content: "" !important; 
+          position: absolute !important; 
+          top: 0.72em !important; 
+          right: 2px !important; 
+          left:auto;
+          width: 9px 
+          !important; 
+          height: 9px !important; 
+          background: linear-gradient(135deg, #1773b0, #64bee5) !important; 
+          border-radius: 999px !important; 
+          box-shadow: 0 0 0 5px rgba(23, 115, 176, 0.08) !important; 
+          transform: translateY(-50%) !important; } 
+          
+          .article-container .article-back-row { margin: 26px 0 0 !important; } .article-container .article-inline-back-link { display: inline-flex !important; align-items: center !important; min-height: 38px !important; padding: 7px 13px !important; color: #123b5d !important; -webkit-text-fill-color: #123b5d !important; font-size: 0.82rem !important; font-weight: 680 !important; line-height: 1.3 !important; text-decoration: none !important; background: #f6f9fb !important; border: 1px solid #d7e4ec !important; border-radius: 999px !important; } .article-container .article-inline-back-link:hover, .article-container .article-inline-back-link:focus-visible { color: #1773b0 !important; -webkit-text-fill-color: #1773b0 !important; background: #ffffff !important; outline: none !important; } .article-container .table-block { width: 100% !important; margin: 32px 0 !important; } .article-container .table-wrapper { width: 100% !important; max-width: 100% !important; overflow-x: auto !important; overflow-y: hidden !important; background: #ffffff !important; border: 1px solid #b9c8d4 !important; border-radius: 18px !important; box-shadow: 0 10px 30px rgba(15, 54, 82, 0.08) !important; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: #9db4c5 #eef3f7; isolation: isolate !important; } .article-container .table-wrapper::-webkit-scrollbar { height: 8px !important; } .article-container .table-wrapper::-webkit-scrollbar-track { background: #eef3f7 !important; border-radius: 999px !important; } .article-container .table-wrapper::-webkit-scrollbar-thumb { background: #9db4c5 !important; border-radius: 999px !important; }
 
           @media screen and (min-width:681px){
 
@@ -192,7 +217,7 @@
         90deg,
         #62b6e6,
         #1773b0
-    ) !important; opacity: 0.65 !important; } .article-container .article-card > * { position: relative !important; z-index: 1 !important; } .article-container .article-card .article-subheading { margin-top: 0 !important; } .article-container .article-warning { padding: 30px !important; background: #fff7e8 !important; border: 1px solid #f1d7ad !important; border-left: 5px solid #d58a24 !important; border-radius: 18px !important; } .article-container .article-faq-list { display: grid !important; gap: 14px !important; margin-top: 26px !important; } .article-container .article-faq-item { overflow: hidden !important; color: #263746 !important; background: #ffffff !important; border: 1px solid #dfe8ef !important; border-radius: 17px !important; box-shadow: 0 8px 24px rgba(15, 54, 82, 0.07) !important; } .article-container .article-faq-question { position: relative !important; display: block !important; padding: 22px 58px 22px 24px !important; color: #0b2942 !important; background: #ffffff !important; -webkit-text-fill-color: #0b2942 !important; font-size: 1.02rem !important; font-weight: 730 !important; line-height: 1.45 !important; cursor: pointer !important; list-style: none !important; } .article-container .article-faq-question::-webkit-details-marker { display: none !important; } .article-container .article-faq-question::after { content: "+" !important; position: absolute !important; top: 50% !important; right: 22px !important; display: flex !important; align-items: center !important; justify-content: center !important; width: 30px !important; height: 30px !important; color: #1773b0 !important; background: #eaf5fc !important; -webkit-text-fill-color: #1773b0 !important; font-size: 1.45rem !important; border-radius: 9px !important; transform: translateY(-50%) !important; } .article-container .article-faq-item[open] .article-faq-question::after { content: "−" !important; color: #ffffff !important; background: #1773b0 !important; -webkit-text-fill-color: #ffffff !important; } .article-container .article-faq-answer { padding: 0 24px 22px !important; color: #263746 !important; background: #ffffff !important; } .article-container .article-faq-answer .article-paragraph { margin: 0 !important; color: #263746 !important; -webkit-text-fill-color: #263746 !important; } .article-container .article-faq-item[open] .article-faq-question { border-bottom: 1px solid #e3ebf1 !important; } .article-container .article-key-takeaways { padding: 34px !important; background: radial-gradient(circle at 95% 10%, rgba(75,190,151,.18), transparent 28%),
+    ) !important; opacity: 0.65 !important; } .article-container .article-card > * { position: relative !important; z-index: 1 !important; } .article-container .article-card .article-subheading { margin-top: 0 !important; } .article-container .article-warning { padding: 30px !important; background: #fff7e8 !important; border: 1px solid #f1d7ad !important; border-right: 5px solid #d58a24 !important; border-left: 1px solid #f1d7ad !important; border-radius: 18px !important; } .article-container .article-faq-list { display: grid !important; gap: 14px !important; margin-top: 26px !important; } .article-container .article-faq-item { overflow: hidden !important; color: #263746 !important; background: #ffffff !important; border: 1px solid #dfe8ef !important; border-radius: 17px !important; box-shadow: 0 8px 24px rgba(15, 54, 82, 0.07) !important; } .article-container .article-faq-question { position: relative !important; display: block !important; padding: 22px 24px 22px 58px !important; color: #0b2942 !important; background: #ffffff !important; -webkit-text-fill-color: #0b2942 !important; font-size: 1.02rem !important; font-weight: 730 !important; line-height: 1.45 !important; cursor: pointer !important; list-style: none !important; } .article-container .article-faq-question::-webkit-details-marker { display: none !important; } .article-container .article-faq-question::after { content: "+" !important; position: absolute !important; top: 50% !important; left: 22px !important; right: auto !important; display: flex !important; align-items: center !important; justify-content: center !important; width: 30px !important; height: 30px !important; color: #1773b0 !important; background: #eaf5fc !important; -webkit-text-fill-color: #1773b0 !important; font-size: 1.45rem !important; border-radius: 9px !important; transform: translateY(-50%) !important; } .article-container .article-faq-item[open] .article-faq-question::after { content: "−" !important; color: #ffffff !important; background: #1773b0 !important; -webkit-text-fill-color: #ffffff !important; } .article-container .article-faq-answer { padding: 0 24px 22px !important; color: #263746 !important; background: #ffffff !important; } .article-container .article-faq-answer .article-paragraph { margin: 0 !important; color: #263746 !important; -webkit-text-fill-color: #263746 !important; } .article-container .article-faq-item[open] .article-faq-question { border-bottom: 1px solid #e3ebf1 !important; } .article-container .article-key-takeaways { padding: 34px !important; background: radial-gradient(circle at 95% 10%, rgba(75,190,151,.18), transparent 28%),
         linear-gradient(180deg,#eefaf5 0%,#e5f4ee 100%) !important; border: 1px solid #bfe0d1 !important; border-radius: 22px !important; box-shadow: 0 14px 34px rgba(15,54,82,.10),
         0 2px 8px rgba(15,54,82,.04) !important; } .article-container .article-key-takeaways .article-list-item::before { content: "✓" !important; top: 0.9em !important; display: flex !important; align-items: center !important; justify-content: center !important; width: 20px !important; height: 20px !important; color: #ffffff !important; background: #16745a !important; -webkit-text-fill-color: #ffffff !important; font-size: 0.72rem !important; font-weight: 800 !important; box-shadow: none !important; } .article-container .article-conclusion { position: relative !important; overflow: hidden !important; padding: 42px !important; color: #ffffff !important; background: radial-gradient(circle at 90% 15%, rgba(110, 201, 236, 0.22), transparent 30%),
       linear-gradient(135deg, #0b2942, #123b5d) !important; border-radius: 24px !important; box-shadow: 0 22px 60px rgba(15, 54, 82, 0.12) !important; } .article-container .article-conclusion .article-section-heading, .article-container .article-conclusion .article-paragraph { color: #ffffff !important; -webkit-text-fill-color: #ffffff !important; } .article-container .article-conclusion .article-section-heading::after { background: linear-gradient(90deg, #8bd5f3, #ffffff) !important; } .article-container .article-sources { padding: 30px !important; background: #f6f9fb !important; border: 1px solid #dfe8ef !important; border-radius: 20px !important; }
@@ -382,7 +407,8 @@
 .article-container .article-toc-title::after {
   content: "" !important;
   position: absolute !important;
-  left: 50px !important;
+  right: 50px !important;
+  left: auto !important;
   bottom: 0 !important;
   width: 56px !important;
   height: 3px !important;
@@ -397,7 +423,7 @@
 .article-container .article-toc-link {
   position: relative !important;
   min-height: 58px !important;
-  padding: 12px 16px 12px 45px !important;
+  padding: 12px 45px 12px 16px !important;
   background: rgba(255,255,255,.78) !important;
   border: 1px solid rgba(199,220,233,.92) !important;
   border-radius: 15px !important;
@@ -408,7 +434,8 @@
 .article-container .article-toc-link::before {
   content: "" !important;
   position: absolute !important;
-  left: 18px !important;
+  right: 18px !important;
+  left: auto !important;
   top: 50% !important;
   width: 10px !important;
   height: 10px !important;
@@ -425,7 +452,8 @@
   content: "" !important;
   position: absolute !important;
   top: 0 !important;
-  right: 0 !important;
+  left: 0 !important;
+  right: auto !important;
   width: 4px !important;
   height: 100% !important;
   background: linear-gradient(180deg, #74c5e8, #1773b0) !important;
@@ -477,17 +505,19 @@
   }
 
   .article-container .article-toc-title::after {
-    left: 46px !important;
+    right: 46px !important;
+    left: auto !important;
   }
 
   .article-container .article-toc-link {
     min-height: 54px !important;
-    padding: 11px 13px 11px 42px !important;
+    padding: 11px 42px 11px 13px !important;
     border-radius: 14px !important;
   }
 
   .article-container .article-toc-link::before {
-    left: 16px !important;
+    right: 16px !important;
+    left: auto !important;
     width: 9px !important;
     height: 9px !important;
   }
@@ -495,8 +525,8 @@
 
 .article-container .article-section:not(.article-conclusion) > .article-paragraph,
 .article-container .article-section:not(.article-conclusion) > .article-list {
-  margin-left: 18px !important;
-  margin-right: 0 !important;
+  margin-right: 18px !important;
+  margin-left: 0 !important;
 }
 
 .article-container .article-section:not(.article-conclusion) > .article-list {
@@ -506,7 +536,8 @@
 @media (max-width: 680px) {
   .article-container .article-section:not(.article-conclusion) > .article-paragraph,
   .article-container .article-section:not(.article-conclusion) > .article-list {
-    margin-left: 10px !important;
+    margin-right: 10px !important;
+    margin-left: 0 !important;
   }
 
   .article-container .article-section:not(.article-conclusion) > .article-list {
@@ -530,8 +561,8 @@
   .article-key-takeaways,
   .article-faq-answer
 ) > .article-list {
-  margin-left: 18px !important;
-  margin-right: 0 !important;
+  margin-right: 18px !important;
+  margin-left: 0 !important;
 }
 
 .article-container :is(
@@ -547,8 +578,8 @@
 
 .article-container .article-paragraph:has(+ .article-list),
 .article-container .article-paragraph + .article-list {
-  margin-left: 18px !important;
-  margin-right: 0 !important;
+  margin-right: 18px !important;
+  margin-left: 0 !important;
 }
 
 .article-container .article-paragraph + .article-list {
@@ -574,7 +605,8 @@
   ) > .article-list,
   .article-container .article-paragraph:has(+ .article-list),
   .article-container .article-paragraph + .article-list {
-    margin-left: 10px !important;
+    margin-right: 10px !important;
+    margin-left: 0 !important;
   }
 
   .article-container :is(
@@ -591,21 +623,25 @@
 }
 
 .article-container .article-dependent-intro {
-  margin-left: 18px !important;
+  margin-right: 18px !important;
+  margin-left: 0 !important;
 }
 
 .article-container .article-dependent-options {
-  margin-left: 36px !important;
+  margin-right: 36px !important;
+  margin-left: 0 !important;
   width: calc(100% - 36px) !important;
 }
 
 @media (max-width: 680px) {
   .article-container .article-dependent-intro {
-    margin-left: 10px !important;
+    margin-right: 10px !important;
+    margin-left: 0 !important;
   }
 
   .article-container .article-dependent-options {
-    margin-left: 20px !important;
+    margin-right: 20px !important;
+    margin-left: 0 !important;
     width: calc(100% - 20px) !important;
   }
 }
