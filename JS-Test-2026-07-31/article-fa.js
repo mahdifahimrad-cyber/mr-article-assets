@@ -289,12 +289,12 @@
                         { dx:0, dy:0, scale:1, opacity:1, offset:0 },
                         { dx:visualGeometry.dx * .72, dy:visualGeometry.dy * .72, scale:.46, opacity:.72, offset:.68 },
                         { dx:visualGeometry.dx, dy:visualGeometry.dy, scale:visualGeometry.scale, opacity:0, offset:1 }
-                    ], { duration:620 }),
+                    ], { duration:620, keepFinalState:true }),
                     closeButton ? runImportantMorph(closeButton, [
                         { dx:0, dy:0, scale:1, opacity:1, offset:0 },
                         { dx:closeGeometry.dx * .72, dy:closeGeometry.dy * .72, scale:.46, opacity:.72, offset:.68 },
                         { dx:closeGeometry.dx, dy:closeGeometry.dy, scale:closeGeometry.scale, opacity:0, offset:1 }
-                    ], { duration:620 }) : Promise.resolve()
+                    ], { duration:620, keepFinalState:true }) : Promise.resolve()
                 ]);
 
             const edgeMorph = isDesktopPack
@@ -324,6 +324,15 @@
             Promise.all([contentMorph, edgeMorph]).finally(function () {
                 container.classList.add('cta-is-hidden');
                 container.classList.remove('cta-morph-running', 'cta-morph-edge-active');
+
+                if (!isDesktopPack) {
+                    [visual, closeButton].forEach(function (element) {
+                        if (!element) return;
+                        element.style.removeProperty('transform');
+                        element.style.removeProperty('opacity');
+                        element.style.removeProperty('transform-origin');
+                    });
+                }
             });
         });
     }
