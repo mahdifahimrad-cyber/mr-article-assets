@@ -289,12 +289,12 @@
                         { dx:0, dy:0, scale:1, opacity:1, offset:0 },
                         { dx:visualGeometry.dx * .72, dy:visualGeometry.dy * .72, scale:.46, opacity:.72, offset:.68 },
                         { dx:visualGeometry.dx, dy:visualGeometry.dy, scale:visualGeometry.scale, opacity:0, offset:1 }
-                    ], { duration:620 }),
+                    ], { duration:620, keepFinalState:true }),
                     closeButton ? runImportantMorph(closeButton, [
                         { dx:0, dy:0, scale:1, opacity:1, offset:0 },
                         { dx:closeGeometry.dx * .72, dy:closeGeometry.dy * .72, scale:.46, opacity:.72, offset:.68 },
                         { dx:closeGeometry.dx, dy:closeGeometry.dy, scale:closeGeometry.scale, opacity:0, offset:1 }
-                    ], { duration:620 }) : Promise.resolve()
+                    ], { duration:620, keepFinalState:true }) : Promise.resolve()
                 ]);
 
             const edgeMorph = isDesktopPack
@@ -315,6 +315,16 @@
                 });
 Promise.all([contentMorph, edgeMorph]).finally(function () {
                 container.classList.add('cta-is-hidden');
+
+                if (!isDesktopPack) {
+                    [visual, closeButton].forEach(function (element) {
+                        if (!element) return;
+                        element.style.removeProperty('transform');
+                        element.style.removeProperty('opacity');
+                        element.style.removeProperty('transform-origin');
+                    });
+                }
+
                 container.classList.remove(
                     'cta-morph-running',
                     'cta-morph-edge-active'
@@ -669,9 +679,16 @@ Promise.all([contentMorph, edgeMorph]).finally(function () {
 
         var wrapperRect = wrapper.getBoundingClientRect();
         var tableRect = table.getBoundingClientRect();
-        var hasOverflow = table.scrollWidth > wrapper.clientWidth + 1;
-        var hasMoreLeft = hasOverflow && tableRect.left < wrapperRect.left - 1;
-        var hasMoreRight = hasOverflow && tableRect.right > wrapperRect.right + 1;
+        var innerLeft = wrapperRect.left + wrapper.clientLeft;
+        var innerRight = innerLeft + wrapper.clientWidth;
+        var tolerance = 2;
+
+        var hasOverflow = wrapper.scrollWidth > wrapper.clientWidth + tolerance;
+        var hiddenOnLeft = Math.max(0, innerLeft - tableRect.left);
+        var hiddenOnRight = Math.max(0, tableRect.right - innerRight);
+
+        var hasMoreLeft = hasOverflow && hiddenOnLeft > tolerance;
+        var hasMoreRight = hasOverflow && hiddenOnRight > tolerance;
 
         wrapper.classList.toggle('article-table-fade-active', hasOverflow);
         wrapper.classList.toggle('article-table-fade-left', hasMoreLeft);
@@ -686,9 +703,15 @@ Promise.all([contentMorph, edgeMorph]).finally(function () {
             }
 
             wrapper.dataset.articleTableFadeReady = 'true';
+            var fadeScrollFrame = 0;
+
             wrapper.addEventListener('scroll', function () {
-                updateTableFade(wrapper);
+                cancelAnimationFrame(fadeScrollFrame);
+                fadeScrollFrame = requestAnimationFrame(function () {
+                    updateTableFade(wrapper);
+                });
             }, { passive: true });
+
             updateTableFade(wrapper);
         });
     }
