@@ -250,11 +250,10 @@
         const group = getActiveCtaGroup(container);
         const edge = container.querySelector('.article-cta-edge-tabs');
         if (!group || !edge) {
-            container.classList.add('cta-closing', 'cta-is-hidden');
+            container.classList.add('cta-is-hidden');
             return;
         }
 
-        container.classList.add('cta-closing');
         container.classList.add('cta-morph-running');
 
         nextPaint(function () {
@@ -327,8 +326,6 @@ Promise.all([contentMorph, edgeMorph]).finally(function () {
     function showUniversalCta(container) {
         if (!container || container.classList.contains('cta-morph-running')
             || !container.classList.contains('cta-is-hidden')) return;
-
-        container.classList.remove('cta-closing');
 
         const wrapper = container.querySelector('.article-floating-cta-wrapper');
         if (wrapper) wrapper.classList.remove('is-minimized');
