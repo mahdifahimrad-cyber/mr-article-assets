@@ -314,6 +314,13 @@
                     }, 520);
                 });
 
+            window.setTimeout(function () {
+                if (container.classList.contains('cta-morph-running')
+                    && !container.classList.contains('cta-morph-opening')) {
+                    container.classList.add('cta-is-hidden');
+                }
+            }, 590);
+
             Promise.all([contentMorph, edgeMorph]).finally(function () {
                 container.classList.add('cta-is-hidden');
                 container.classList.remove('cta-morph-running', 'cta-morph-edge-active');
