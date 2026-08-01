@@ -3526,23 +3526,3 @@
     mask-image: linear-gradient(to right, transparent 0, rgba(0,0,0,.22) 16px, #000 52px, #000 calc(100% - 52px), rgba(0,0,0,.22) calc(100% - 16px), transparent 100%) !important;
 }
 
-
-/* CTA final-frame visibility guard — prevents the closed CTA from flashing
-   while the colour edge panel becomes active. No morph timing or CTA logic changes. */
-.article-container.cta-is-hidden.cta-morph-running:not(.cta-morph-opening) .article-floating-cta-wrapper,
-.article-container.cta-is-hidden.cta-morph-running:not(.cta-morph-opening) .article-mobile-cta-holder,
-.article-container.cta-is-hidden:not(.cta-morph-opening) .article-floating-cta-wrapper,
-.article-container.cta-is-hidden:not(.cta-morph-opening) .article-mobile-cta-holder {
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-}
-.article-container.cta-is-hidden.cta-morph-running:not(.cta-morph-opening) .article-floating-cta,
-.article-container.cta-is-hidden.cta-morph-running:not(.cta-morph-opening) .article-mobile-cta,
-.article-container.cta-is-hidden.cta-morph-running:not(.cta-morph-opening) .article-floating-cta-close,
-.article-container.cta-is-hidden.cta-morph-running:not(.cta-morph-opening) .article-mobile-cta-close {
-    opacity: 0 !important;
-    visibility: hidden !important;
-    animation: none !important;
-    pointer-events: none !important;
-}
