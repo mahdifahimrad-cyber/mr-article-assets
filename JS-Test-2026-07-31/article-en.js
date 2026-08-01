@@ -302,9 +302,23 @@
                     }, 520);
                 });
 
+            if (!isDesktopPack) {
+                contentMorph.then(function () {
+                    visual.style.setProperty('opacity', '0', 'important');
+                    if (closeButton) closeButton.style.setProperty('opacity', '0', 'important');
+                });
+            }
+
             Promise.all([contentMorph, edgeMorph]).finally(function () {
                 container.classList.add('cta-is-hidden');
                 container.classList.remove('cta-morph-running', 'cta-morph-edge-active');
+
+                if (!isDesktopPack) {
+                    window.requestAnimationFrame(function () {
+                        visual.style.removeProperty('opacity');
+                        if (closeButton) closeButton.style.removeProperty('opacity');
+                    });
+                }
             });
         });
     }
