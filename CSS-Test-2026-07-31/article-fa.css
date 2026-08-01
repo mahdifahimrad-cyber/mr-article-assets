@@ -3842,14 +3842,10 @@
     mask-image: linear-gradient(to right, transparent 0, rgba(0,0,0,.22) 16px, #000 52px, #000 calc(100% - 52px), rgba(0,0,0,.22) calc(100% - 16px), transparent 100%) !important;
 }
 
-/* Mobile/bottom CTA: prevent the completed content from repainting while the edge-tab morph finishes. */
+/* Prevent the mobile/bottom CTA shake animation from restarting during the closing handoff. */
 @media screen and (max-width: 1100px) {
-    .article-container.cta-morph-running.cta-mobile-morph-content-finished
-    .article-mobile-cta-holder .article-mobile-cta,
-    .article-container.cta-morph-running.cta-mobile-morph-content-finished
-    .article-mobile-cta-holder .article-mobile-cta-close {
-        opacity: 0 !important;
-        visibility: hidden !important;
-        pointer-events: none !important;
+    .article-container.cta-closing .article-mobile-cta-holder .article-mobile-cta,
+    .article-container.cta-closing .article-mobile-cta-holder .article-mobile-cta-close {
+        animation: none !important;
     }
 }
