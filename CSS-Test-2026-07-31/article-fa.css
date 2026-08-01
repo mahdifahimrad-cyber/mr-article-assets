@@ -3827,3 +3827,18 @@
     }
 }
 
+/* Reliable physical edge fade for horizontally scrollable tables.
+   This supplements the existing pseudo-element fade without changing table layout. */
+.article-container .table-wrapper.article-table-fade-active.article-table-fade-left:not(.article-table-fade-right) {
+    -webkit-mask-image: linear-gradient(to right, transparent 0, rgba(0,0,0,.22) 16px, #000 52px, #000 100%) !important;
+    mask-image: linear-gradient(to right, transparent 0, rgba(0,0,0,.22) 16px, #000 52px, #000 100%) !important;
+}
+.article-container .table-wrapper.article-table-fade-active.article-table-fade-right:not(.article-table-fade-left) {
+    -webkit-mask-image: linear-gradient(to left, transparent 0, rgba(0,0,0,.22) 16px, #000 52px, #000 100%) !important;
+    mask-image: linear-gradient(to left, transparent 0, rgba(0,0,0,.22) 16px, #000 52px, #000 100%) !important;
+}
+.article-container .table-wrapper.article-table-fade-active.article-table-fade-left.article-table-fade-right {
+    -webkit-mask-image: linear-gradient(to right, transparent 0, rgba(0,0,0,.22) 16px, #000 52px, #000 calc(100% - 52px), rgba(0,0,0,.22) calc(100% - 16px), transparent 100%) !important;
+    mask-image: linear-gradient(to right, transparent 0, rgba(0,0,0,.22) 16px, #000 52px, #000 calc(100% - 52px), rgba(0,0,0,.22) calc(100% - 16px), transparent 100%) !important;
+}
+
