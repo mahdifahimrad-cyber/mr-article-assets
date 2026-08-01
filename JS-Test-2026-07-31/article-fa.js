@@ -250,10 +250,11 @@
         const group = getActiveCtaGroup(container);
         const edge = container.querySelector('.article-cta-edge-tabs');
         if (!group || !edge) {
-            container.classList.add('cta-is-hidden');
+            container.classList.add('cta-closing', 'cta-is-hidden');
             return;
         }
 
+        container.classList.add('cta-closing');
         container.classList.add('cta-morph-running');
 
         nextPaint(function () {
@@ -313,19 +314,11 @@
                         ], { duration:360, easing:'ease-out', fill:'both' }).then(resolve);
                     }, 520);
                 });
-
-            if (!isDesktopPack) {
-                contentMorph.then(function () {
-                    container.classList.add('cta-mobile-morph-content-finished');
-                });
-            }
-
-            Promise.all([contentMorph, edgeMorph]).finally(function () {
+Promise.all([contentMorph, edgeMorph]).finally(function () {
                 container.classList.add('cta-is-hidden');
                 container.classList.remove(
                     'cta-morph-running',
-                    'cta-morph-edge-active',
-                    'cta-mobile-morph-content-finished'
+                    'cta-morph-edge-active'
                 );
             });
         });
@@ -334,6 +327,8 @@
     function showUniversalCta(container) {
         if (!container || container.classList.contains('cta-morph-running')
             || !container.classList.contains('cta-is-hidden')) return;
+
+        container.classList.remove('cta-closing');
 
         const wrapper = container.querySelector('.article-floating-cta-wrapper');
         if (wrapper) wrapper.classList.remove('is-minimized');
