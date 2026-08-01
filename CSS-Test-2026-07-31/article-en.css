@@ -3526,10 +3526,10 @@
     mask-image: linear-gradient(to right, transparent 0, rgba(0,0,0,.22) 16px, #000 52px, #000 calc(100% - 52px), rgba(0,0,0,.22) calc(100% - 16px), transparent 100%) !important;
 }
 
-/* Prevent the mobile/bottom CTA shake animation from restarting during the closing handoff. */
-@media screen and (max-width: 1100px) {
-    .article-container.cta-closing .article-mobile-cta-holder .article-mobile-cta,
-    .article-container.cta-closing .article-mobile-cta-holder .article-mobile-cta-close {
-        animation: none !important;
+/* Keep exactly one CTA presentation active at each viewport size. */
+@media screen and (max-width: 1680px) {
+    .article-container .article-floating-cta-wrapper,
+    .article-container .article-floating-cta-wrapper.is-minimized {
+        display: none !important;
     }
 }
