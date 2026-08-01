@@ -314,36 +314,33 @@
                     }, 520);
                 });
 
-            window.setTimeout(function () {
-                if (container.classList.contains('cta-morph-running')
-                    && !container.classList.contains('cta-morph-opening')) {
-                    container.classList.add('cta-is-hidden');
-                }
-            }, 590);
-
-            if (!isDesktopPack) {
-                Promise.resolve(contentMorph).then(function () {
-                    if (!container.classList.contains('cta-morph-running')
-                        || container.classList.contains('cta-morph-opening')) return;
-                    group.style.setProperty('visibility', 'hidden', 'important');
-                    group.style.setProperty('pointer-events', 'none', 'important');
-                });
-            }
-
             Promise.all([contentMorph, edgeMorph]).finally(function () {
                 container.classList.add('cta-is-hidden');
-                container.classList.remove('cta-morph-running', 'cta-morph-edge-active');
 
-                if (!isDesktopPack) {
-                    group.style.removeProperty('visibility');
-                    group.style.removeProperty('pointer-events');
-                    [visual, closeButton].forEach(function (element) {
-                        if (!element) return;
-                        element.style.removeProperty('transform');
-                        element.style.removeProperty('opacity');
-                        element.style.removeProperty('transform-origin');
-                    });
+                if (isDesktopPack) {
+                    container.classList.remove('cta-morph-running', 'cta-morph-edge-active');
+                    return;
                 }
+
+                /* Mobile/bottom CTA: commit the hidden state for a full paint
+                   before releasing morph visibility rules and inline opacity. */
+                group.style.setProperty('visibility', 'hidden', 'important');
+                group.style.setProperty('pointer-events', 'none', 'important');
+
+                nextPaint(function () {
+                    container.classList.remove('cta-morph-running', 'cta-morph-edge-active');
+
+                    nextPaint(function () {
+                        group.style.removeProperty('visibility');
+                        group.style.removeProperty('pointer-events');
+                        [visual, closeButton].forEach(function (element) {
+                            if (!element) return;
+                            element.style.removeProperty('transform');
+                            element.style.removeProperty('opacity');
+                            element.style.removeProperty('transform-origin');
+                        });
+                    });
+                });
             });
         });
     }
