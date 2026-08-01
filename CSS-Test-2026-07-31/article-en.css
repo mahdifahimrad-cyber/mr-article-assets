@@ -3403,40 +3403,51 @@
     will-change: transform, opacity !important;
 }
 /* Table horizontal-scroll edge fade — additive only */
-.article-container .table-wrapper.article-table-fade-active {
-    position: relative !important;
+.article-container .table-wrapper {
+    --article-table-fade-size: 20px;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    -webkit-mask-repeat: no-repeat !important;
+    mask-repeat: no-repeat !important;
 }
+
+.article-container .table-wrapper.article-table-fade-active.article-table-fade-left:not(.article-table-fade-right) {
+    -webkit-mask-image:
+        linear-gradient(to right, rgba(0,0,0,.72) 0, #000 var(--article-table-fade-size), #000 100%) !important;
+    mask-image:
+        linear-gradient(to right, rgba(0,0,0,.72) 0, #000 var(--article-table-fade-size), #000 100%) !important;
+}
+
+.article-container .table-wrapper.article-table-fade-active.article-table-fade-right:not(.article-table-fade-left) {
+    -webkit-mask-image:
+        linear-gradient(to left, rgba(0,0,0,.72) 0, #000 var(--article-table-fade-size), #000 100%) !important;
+    mask-image:
+        linear-gradient(to left, rgba(0,0,0,.72) 0, #000 var(--article-table-fade-size), #000 100%) !important;
+}
+
+.article-container .table-wrapper.article-table-fade-active.article-table-fade-left.article-table-fade-right {
+    -webkit-mask-image:
+        linear-gradient(
+            to right,
+            rgba(0,0,0,.72) 0,
+            #000 var(--article-table-fade-size),
+            #000 calc(100% - var(--article-table-fade-size)),
+            rgba(0,0,0,.72) 100%
+        ) !important;
+    mask-image:
+        linear-gradient(
+            to right,
+            rgba(0,0,0,.72) 0,
+            #000 var(--article-table-fade-size),
+            #000 calc(100% - var(--article-table-fade-size)),
+            rgba(0,0,0,.72) 100%
+        ) !important;
+}
+
 .article-container .table-wrapper.article-table-fade-active::before,
 .article-container .table-wrapper.article-table-fade-active::after {
-    content: "" !important;
-    position: absolute !important;
-    top: 0 !important;
-    bottom: 0 !important;
-    width: 52px !important;
-    z-index: 6 !important;
-    pointer-events: none !important;
-    opacity: 0 !important;
-    transition: opacity 180ms ease !important;
-}
-.article-container .table-wrapper.article-table-fade-active::before {
-    left: 0 !important;
-    background: linear-gradient(90deg, rgba(255,255,255,.98) 0%, rgba(255,255,255,.78) 36%, rgba(255,255,255,0) 100%) !important;
-}
-.article-container .table-wrapper.article-table-fade-active::after {
-    right: 0 !important;
-    background: linear-gradient(270deg, rgba(255,255,255,.98) 0%, rgba(255,255,255,.78) 36%, rgba(255,255,255,0) 100%) !important;
-}
-.article-container .table-wrapper.article-table-fade-left::before {
-    opacity: 1 !important;
-}
-.article-container .table-wrapper.article-table-fade-right::after {
-    opacity: 1 !important;
-}
-@media (prefers-reduced-motion: reduce) {
-    .article-container .table-wrapper.article-table-fade-active::before,
-    .article-container .table-wrapper.article-table-fade-active::after {
-        transition: none !important;
-    }
+    content: none !important;
+    display: none !important;
 }
 
 /* Table horizontal-scroll hints above and below the table — additive only */
