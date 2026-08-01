@@ -741,61 +741,58 @@ Promise.all([contentMorph, edgeMorph]).finally(function () {
 
 /* Table horizontal-scroll hints above and below the table — additive only */
 (function () {
-    function createHint(className, arrowClass, text) {
-        var hint = document.createElement('div');
-        hint.className = className;
-        hint.setAttribute('aria-hidden', 'true');
-
-        var label = document.createElement('span');
-        label.className = 'article-table-scroll-hint-label';
-        label.textContent = text;
-
+    function createArrow(direction, arrowClass) {
         var arrow = document.createElement('span');
-        arrow.className = arrowClass + ' article-table-scroll-direction-right';
+        arrow.className = arrowClass + ' article-table-scroll-side-arrow article-table-scroll-side-' + direction;
+        arrow.setAttribute('aria-hidden', 'true');
 
         var glyph = document.createElement('span');
         glyph.className = 'article-table-scroll-arrow-single';
         glyph.textContent = '→';
 
         arrow.appendChild(glyph);
+        return arrow;
+    }
+
+    function createHint(className, arrowClass, text) {
+        var hint = document.createElement('div');
+        hint.className = className;
+        hint.setAttribute('aria-hidden', 'true');
+
+        var leftArrow = createArrow('left', arrowClass);
+        var rightArrow = createArrow('right', arrowClass);
+
+        var label = document.createElement('span');
+        label.className = 'article-table-scroll-hint-label';
+        label.textContent = text;
+
+        hint.appendChild(leftArrow);
         hint.appendChild(label);
-        hint.appendChild(arrow);
+        hint.appendChild(rightArrow);
         return hint;
     }
 
-    function getDirection(wrapper, table, hasMoreLeft, hasMoreRight) {
-        var rectLeft = table.getBoundingClientRect().left;
-        var previousLeft = Number(wrapper.dataset.articleTablePreviousLeft);
-        var direction = wrapper.dataset.articleTableHintDirection;
+    function setHintState(hint, hasMoreLeft, hasMoreRight) {
+        if (!hint) return;
 
-        if (Number.isFinite(previousLeft)) {
-            if (rectLeft < previousLeft - 0.5) direction = 'right';
-            if (rectLeft > previousLeft + 0.5) direction = 'left';
+        var visible = hasMoreLeft || hasMoreRight;
+        hint.classList.toggle('article-table-scroll-hint-visible', visible);
+        hint.classList.toggle('article-table-scroll-hint-both', hasMoreLeft && hasMoreRight);
+        hint.classList.toggle('article-table-scroll-hint-left-only', hasMoreLeft && !hasMoreRight);
+        hint.classList.toggle('article-table-scroll-hint-right-only', hasMoreRight && !hasMoreLeft);
+
+        var leftArrow = hint.querySelector('.article-table-scroll-side-left');
+        var rightArrow = hint.querySelector('.article-table-scroll-side-right');
+
+        if (leftArrow) {
+            leftArrow.classList.toggle('article-table-scroll-arrow-visible', hasMoreLeft);
+            leftArrow.classList.toggle('article-table-scroll-direction-left', hasMoreLeft);
         }
 
-        if (!hasMoreLeft && hasMoreRight) direction = 'right';
-        if (hasMoreLeft && !hasMoreRight) direction = 'left';
-        if (!direction) direction = hasMoreRight ? 'right' : 'left';
-
-        wrapper.dataset.articleTablePreviousLeft = String(rectLeft);
-        wrapper.dataset.articleTableHintDirection = direction;
-        return direction;
-    }
-
-    function setHintState(hint, visible, direction) {
-        if (!hint) return;
-        var pointsLeft = direction === 'left';
-        hint.classList.toggle('article-table-scroll-hint-visible', visible);
-        hint.classList.toggle('article-table-scroll-hint-left', pointsLeft);
-
-        var arrow = hint.querySelector('.article-table-scroll-hint-arrow, .article-table-scroll-hint-bottom-arrow');
-        if (!arrow) return;
-
-        arrow.classList.toggle('article-table-scroll-direction-left', pointsLeft);
-        arrow.classList.toggle('article-table-scroll-direction-right', !pointsLeft);
-
-        var glyph = arrow.querySelector('.article-table-scroll-arrow-single');
-        if (glyph) glyph.textContent = pointsLeft ? '←' : '→';
+        if (rightArrow) {
+            rightArrow.classList.toggle('article-table-scroll-arrow-visible', hasMoreRight);
+            rightArrow.classList.toggle('article-table-scroll-direction-right', hasMoreRight);
+        }
     }
 
     function prepareWrapper(wrapper) {
@@ -819,21 +816,30 @@ Promise.all([contentMorph, edgeMorph]).finally(function () {
         }
 
         function update() {
-            var hasOverflow = table.scrollWidth > wrapper.clientWidth + 1;
             var wrapperRect = wrapper.getBoundingClientRect();
             var tableRect = table.getBoundingClientRect();
-            var hasMoreLeft = hasOverflow && tableRect.left < wrapperRect.left - 1;
-            var hasMoreRight = hasOverflow && tableRect.right > wrapperRect.right + 1;
-            var direction = getDirection(wrapper, table, hasMoreLeft, hasMoreRight);
+            var innerLeft = wrapperRect.left + wrapper.clientLeft;
+            var innerRight = innerLeft + wrapper.clientWidth;
+            var tolerance = 2;
 
-            setHintState(top, hasOverflow, direction);
-            setHintState(bottom, hasOverflow, direction);
+            var hasOverflow = wrapper.scrollWidth > wrapper.clientWidth + tolerance;
+            var hasMoreLeft = hasOverflow && Math.max(0, innerLeft - tableRect.left) > tolerance;
+            var hasMoreRight = hasOverflow && Math.max(0, tableRect.right - innerRight) > tolerance;
+
+            setHintState(top, hasMoreLeft, hasMoreRight);
+            setHintState(bottom, hasMoreLeft, hasMoreRight);
         }
 
         if (wrapper.dataset.articleTableHintReady !== 'true') {
             wrapper.dataset.articleTableHintReady = 'true';
-            wrapper.addEventListener('scroll', update, { passive: true });
+            var hintScrollFrame = 0;
+
+            wrapper.addEventListener('scroll', function () {
+                cancelAnimationFrame(hintScrollFrame);
+                hintScrollFrame = requestAnimationFrame(update);
+            }, { passive: true });
         }
+
         update();
     }
 
@@ -857,9 +863,9 @@ Promise.all([contentMorph, edgeMorph]).finally(function () {
     window.addEventListener('resize', scheduleUpdate, { passive: true });
 
     if ('ResizeObserver' in window) {
-        var resizeObserver = new ResizeObserver(scheduleUpdate);
+        var hintObserver = new ResizeObserver(scheduleUpdate);
         document.querySelectorAll('.article-container .table-wrapper').forEach(function (wrapper) {
-            resizeObserver.observe(wrapper);
+            hintObserver.observe(wrapper);
         });
     }
 })();
