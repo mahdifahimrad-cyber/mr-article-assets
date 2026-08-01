@@ -310,11 +310,22 @@
                 }
             }, 590);
 
+            if (!isDesktopPack) {
+                Promise.resolve(contentMorph).then(function () {
+                    if (!container.classList.contains('cta-morph-running')
+                        || container.classList.contains('cta-morph-opening')) return;
+                    group.style.setProperty('visibility', 'hidden', 'important');
+                    group.style.setProperty('pointer-events', 'none', 'important');
+                });
+            }
+
             Promise.all([contentMorph, edgeMorph]).finally(function () {
                 container.classList.add('cta-is-hidden');
                 container.classList.remove('cta-morph-running', 'cta-morph-edge-active');
 
                 if (!isDesktopPack) {
+                    group.style.removeProperty('visibility');
+                    group.style.removeProperty('pointer-events');
                     [visual, closeButton].forEach(function (element) {
                         if (!element) return;
                         element.style.removeProperty('transform');
