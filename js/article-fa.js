@@ -1,4 +1,4 @@
-/*Version 2026-08-01*/
+/*Version 2026-08-01-v1*/
 (function () {
         var container = document.currentScript && document.currentScript.parentElement;
         if (!container) return;
@@ -672,7 +672,7 @@ Promise.all([contentMorph, edgeMorph]).finally(function () {
         document.querySelectorAll('.article-container .table-wrapper').forEach(function(wrapper){ observer.observe(wrapper); });
     }
 })();
-/* Table horizontal-scroll edge fade — additive only */
+/* Table horizontal-scroll edge fade additive only */
 (function () {
     function updateTableFade(wrapper) {
         var table = wrapper.querySelector('.responsive-table');
@@ -740,7 +740,7 @@ Promise.all([contentMorph, edgeMorph]).finally(function () {
     }
 })();
 
-/* Table horizontal-scroll hints above and below the table — additive only */
+/* Table horizontal-scroll hints above and below the table  additive only */
 (function () {
     function createArrow(direction, arrowClass) {
         var arrow = document.createElement('span');
