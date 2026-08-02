@@ -1,3 +1,4 @@
+/*Version 2026-08-01*/
 (function () {
         var container = document.currentScript && document.currentScript.parentElement;
         if (!container) return;
