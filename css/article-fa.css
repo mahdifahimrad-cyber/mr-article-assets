@@ -263,7 +263,10 @@
         #edf3f7
     ) !important;  border: 1px solid #d0dde7 !important;  border-radius: 20px !important;  box-shadow: 0 12px 30px rgba(15,54,82,.10),
         0 2px 8px rgba(15,54,82,.04) !important; }  .article-container .article-conclusion {  padding: 32px 24px !important;  border-radius: 20px !important; }
-        .article-container .responsive-table {  min-width: 640px !important;  font-size: 14px !important; }
+        .article-container .responsive-table {  
+          min-width: 520px !important;  
+          font-size: 14px !important; 
+        }
         .article-container .table-head .table-heading, .article-container .table-cell {  padding: 12px !important; }
 
 .article-container .article-back-to-toc {  right: 8px !important;
@@ -3717,4 +3720,242 @@
     animation: none !important;
     pointer-events: none !important;
     will-change: transform, opacity !important;
+}
+/* Table horizontal-scroll edge fade — additive only */
+.article-container .table-wrapper {
+    --article-table-fade-size: 20px;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    -webkit-mask-repeat: no-repeat !important;
+    mask-repeat: no-repeat !important;
+}
+
+.article-container .table-wrapper.article-table-fade-active::before,
+.article-container .table-wrapper.article-table-fade-active::after {
+    content: none !important;
+    display: none !important;
+}
+
+/* Table horizontal-scroll hints above and below the table — additive only */
+.article-container .article-table-scroll-hint,
+.article-container .article-table-scroll-hint-bottom {
+    display: none !important;
+    position: relative !important;
+    width: 100% !important;
+    min-height: 26px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #607285 !important;
+    -webkit-text-fill-color: #607285 !important;
+    font-size: 0.84rem !important;
+    font-weight: 700 !important;
+    line-height: 1.4 !important;
+    pointer-events: none !important;
+}
+
+.article-container .article-table-scroll-hint {
+    margin: 0 0 8px !important;
+}
+
+.article-container .article-table-scroll-hint-bottom {
+    margin: 8px 0 0 !important;
+}
+
+.article-container .article-table-scroll-hint.article-table-scroll-hint-visible,
+.article-container .article-table-scroll-hint-bottom.article-table-scroll-hint-visible {
+    display: flex !important;
+}
+
+.article-container .article-table-scroll-hint-label {
+    display: inline-block !important;
+    padding: 0 44px !important;
+    text-align: center !important;
+}
+
+.article-container .article-table-scroll-side-arrow {
+    display: none !important;
+    position: absolute !important;
+    top: 50% !important;
+    width: 40px !important;
+    height: 24px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 22px !important;
+    font-weight: 700 !important;
+    line-height: 24px !important;
+    text-align: center !important;
+    transform-origin: center center !important;
+    will-change: transform, opacity !important;
+}
+
+.article-container .article-table-scroll-side-left {
+    left: 2px !important;
+}
+
+.article-container .article-table-scroll-side-right {
+    right: 2px !important;
+}
+
+.article-container .article-table-scroll-side-arrow.article-table-scroll-arrow-visible {
+    display: inline-flex !important;
+}
+
+.article-container .article-table-scroll-arrow-single {
+    display: flex !important;
+    width: 24px !important;
+    height: 24px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 24px !important;
+    transform-origin: center center !important;
+}
+
+.article-container .article-table-scroll-side-left .article-table-scroll-arrow-single {
+    transform: scaleX(-1) !important;
+}
+
+.article-container .article-table-scroll-direction-right {
+    animation: articleTableArrowMoveRight 1.05s cubic-bezier(.42,0,.58,1) infinite !important;
+}
+
+.article-container .article-table-scroll-direction-left {
+    animation: articleTableArrowMoveLeft 1.05s cubic-bezier(.42,0,.58,1) infinite !important;
+}
+
+@keyframes articleTableArrowMoveRight {
+    0%, 100% { transform: translateY(-50%) translateX(-3px) scale(.92); opacity: .65; }
+    50% { transform: translateY(-50%) translateX(18px) scale(1.28); opacity: 1; }
+}
+
+@keyframes articleTableArrowMoveLeft {
+    0%, 100% { transform: translateY(-50%) translateX(3px) scale(.92); opacity: .65; }
+    50% { transform: translateY(-50%) translateX(-18px) scale(1.28); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .article-container .article-table-scroll-direction-right {
+        animation: articleTableArrowMoveRight 1.45s linear infinite !important;
+    }
+
+    .article-container .article-table-scroll-direction-left {
+        animation: articleTableArrowMoveLeft 1.45s linear infinite !important;
+    }
+}
+
+/* Reliable physical edge fade for horizontally scrollable tables.
+   This supplements the existing pseudo-element fade without changing table layout. */
+.article-container .table-wrapper.article-table-fade-active.article-table-fade-left:not(.article-table-fade-right) {
+    -webkit-mask-image: linear-gradient(to right, transparent 0, rgba(0,0,0,.22) 16px, #000 52px, #000 100%) !important;
+    mask-image: linear-gradient(to right, transparent 0, rgba(0,0,0,.22) 16px, #000 52px, #000 100%) !important;
+}
+.article-container .table-wrapper.article-table-fade-active.article-table-fade-right:not(.article-table-fade-left) {
+    -webkit-mask-image: linear-gradient(to left, transparent 0, rgba(0,0,0,.22) 16px, #000 52px, #000 100%) !important;
+    mask-image: linear-gradient(to left, transparent 0, rgba(0,0,0,.22) 16px, #000 52px, #000 100%) !important;
+}
+.article-container .table-wrapper.article-table-fade-active.article-table-fade-left.article-table-fade-right {
+    -webkit-mask-image: linear-gradient(to right, transparent 0, rgba(0,0,0,.22) 16px, #000 52px, #000 calc(100% - 52px), rgba(0,0,0,.22) calc(100% - 16px), transparent 100%) !important;
+    mask-image: linear-gradient(to right, transparent 0, rgba(0,0,0,.22) 16px, #000 52px, #000 calc(100% - 52px), rgba(0,0,0,.22) calc(100% - 16px), transparent 100%) !important;
+}
+
+/* Keep exactly one CTA presentation active at each viewport size. */
+@media screen and (max-width: 1680px) {
+    .article-container .article-floating-cta-wrapper,
+    .article-container .article-floating-cta-wrapper.is-minimized {
+        display: none !important;
+    }
+}
+
+/* Important Notice / Disclaimer — distinct legal notice styling */
+.article-container #important-notice.article-warning {
+    background: #fef2f2 !important;
+    border: 1px solid #fecaca !important;
+    border-left: 5px solid #b91c1c !important;
+    box-shadow: 0 10px 28px rgba(185, 28, 28, 0.08) !important;
+}
+
+.article-container #important-notice.article-warning .article-subheading {
+    color: #991b1b !important;
+    -webkit-text-fill-color: #991b1b !important;
+}
+
+.article-container #important-notice.article-warning .article-subheading::after {
+    background: linear-gradient(90deg, #b91c1c, #ef4444) !important;
+}
+
+.article-container #important-notice.article-warning a {
+    color: #991b1b !important;
+    -webkit-text-fill-color: #991b1b !important;
+}
+
+.article-container[lang="fa"][dir="rtl"] #important-notice.article-warning {
+    border-left: 1px solid #fecaca !important;
+    border-right: 5px solid #b91c1c !important;
+}
+
+/* Visible gold edge tint for active table fades — visual only */
+.article-container .table-wrapper.article-table-fade-active.article-table-fade-left:not(.article-table-fade-right) {
+    box-shadow:
+        inset 28px 0 22px -20px rgba(212, 175, 55, .48),
+        0 10px 30px rgba(15, 54, 82, 0.08) !important;
+}
+
+.article-container .table-wrapper.article-table-fade-active.article-table-fade-right:not(.article-table-fade-left) {
+    box-shadow:
+        inset -28px 0 22px -20px rgba(212, 175, 55, .48),
+        0 10px 30px rgba(15, 54, 82, 0.08) !important;
+}
+
+.article-container .table-wrapper.article-table-fade-active.article-table-fade-left.article-table-fade-right {
+    box-shadow:
+        inset 28px 0 22px -20px rgba(212, 175, 55, .48),
+        inset -28px 0 22px -20px rgba(212, 175, 55, .48),
+        0 10px 30px rgba(15, 54, 82, 0.08) !important;
+}
+
+/* Persian tables: physical column order and primary column run right-to-left */
+.article-container[lang="fa"][dir="rtl"] .table-wrapper {
+    direction: rtl !important;
+}
+
+.article-container[lang="fa"][dir="rtl"] .responsive-table,
+.article-container[lang="fa"][dir="rtl"] .table-ltr,
+.article-container[lang="fa"][dir="rtl"] .table-ltr .responsive-table,
+.article-container[lang="fa"][dir="rtl"] .table-head,
+.article-container[lang="fa"][dir="rtl"] .responsive-table thead,
+.article-container[lang="fa"][dir="rtl"] .responsive-table tbody,
+.article-container[lang="fa"][dir="rtl"] .table-row {
+    direction: rtl !important;
+    unicode-bidi: isolate !important;
+}
+
+.article-container[lang="fa"][dir="rtl"] .responsive-table th,
+.article-container[lang="fa"][dir="rtl"] .responsive-table td,
+.article-container[lang="fa"][dir="rtl"] .table-ltr .table-heading,
+.article-container[lang="fa"][dir="rtl"] .table-ltr .table-cell {
+    direction: rtl !important;
+    text-align: right !important;
+    unicode-bidi: isolate !important;
+}
+
+.article-container[lang="fa"][dir="rtl"] .table-ltr .table-heading:not(:last-child),
+.article-container[lang="fa"][dir="rtl"] .table-ltr .table-cell:not(:last-child) {
+    border-right: 0 !important;
+    border-left: 1px solid #b9c8d4 !important;
+}
+
+.article-container[lang="fa"][dir="rtl"] .table-ltr .table-heading:not(:last-child) {
+    border-left-color: rgba(255, 255, 255, 0.32) !important;
+}
+
+/* Mobile only: keep every article device-state below the site's sticky header */
+@media (max-width: 768px) {
+    .article-container,
+    .article-container.article-device-phone,
+    .article-container.article-device-tablet,
+    .article-container.article-device-desktop {
+        position: relative !important;
+        z-index: 0 !important;
+        isolation: isolate !important;
+    }
 }
