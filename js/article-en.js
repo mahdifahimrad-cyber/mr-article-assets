@@ -72,16 +72,6 @@
         return group.querySelector('.article-floating-cta-close, .article-mobile-cta-close');
     }
 
-    function getMorphGeometryFromRects(groupRect, edgeRect) {
-
-        return {
-            dx: (edgeRect.left + edgeRect.width / 2) - (groupRect.left + groupRect.width / 2),
-            dy: (edgeRect.top + edgeRect.height / 2) - (groupRect.top + groupRect.height / 2),
-            scale: Math.max(0.06, Math.min(0.18,
-                Math.min(edgeRect.width / groupRect.width, edgeRect.height / groupRect.height)))
-        };
-    }
-
     function nextPaint(callback) {
         window.requestAnimationFrame(function () {
             window.requestAnimationFrame(callback);
@@ -140,6 +130,8 @@
             }
             requestAnimationFrame(tick);
         }).finally(function () {
+            if (options && options.keepFinalState) return;
+
             element.style.removeProperty('transform');
             element.style.removeProperty('opacity');
             element.style.removeProperty('transform-origin');
@@ -277,12 +269,12 @@
                         { dx:0, dy:0, scale:1, opacity:1, offset:0 },
                         { dx:visualGeometry.dx * .72, dy:visualGeometry.dy * .72, scale:.46, opacity:.72, offset:.68 },
                         { dx:visualGeometry.dx, dy:visualGeometry.dy, scale:visualGeometry.scale, opacity:0, offset:1 }
-                    ], { duration:620 }),
+                    ], { duration:620, keepFinalState:true }),
                     closeButton ? runImportantMorph(closeButton, [
                         { dx:0, dy:0, scale:1, opacity:1, offset:0 },
                         { dx:closeGeometry.dx * .72, dy:closeGeometry.dy * .72, scale:.46, opacity:.72, offset:.68 },
                         { dx:closeGeometry.dx, dy:closeGeometry.dy, scale:closeGeometry.scale, opacity:0, offset:1 }
-                    ], { duration:620 }) : Promise.resolve()
+                    ], { duration:620, keepFinalState:true }) : Promise.resolve()
                 ]);
 
             const edgeMorph = isDesktopPack
@@ -301,10 +293,22 @@
                         ], { duration:360, easing:'ease-out', fill:'both' }).then(resolve);
                     }, 520);
                 });
-
-            Promise.all([contentMorph, edgeMorph]).finally(function () {
+Promise.all([contentMorph, edgeMorph]).finally(function () {
                 container.classList.add('cta-is-hidden');
-                container.classList.remove('cta-morph-running', 'cta-morph-edge-active');
+
+                if (!isDesktopPack) {
+                    [visual, closeButton].forEach(function (element) {
+                        if (!element) return;
+                        element.style.removeProperty('transform');
+                        element.style.removeProperty('opacity');
+                        element.style.removeProperty('transform-origin');
+                    });
+                }
+
+                container.classList.remove(
+                    'cta-morph-running',
+                    'cta-morph-edge-active'
+                );
             });
         });
     }
@@ -617,3 +621,202 @@
         document.querySelectorAll('.article-container .table-wrapper').forEach(function(wrapper){ observer.observe(wrapper); });
     }
 })();
+/* Table horizontal-scroll edge fade — additive only */
+(function () {
+    function updateTableFade(wrapper) {
+        var table = wrapper.querySelector('.responsive-table');
+        if (!table) return;
+
+        var wrapperRect = wrapper.getBoundingClientRect();
+        var tableRect = table.getBoundingClientRect();
+        var innerLeft = wrapperRect.left + wrapper.clientLeft;
+        var innerRight = innerLeft + wrapper.clientWidth;
+        var tolerance = 2;
+
+        var hasOverflow = wrapper.scrollWidth > wrapper.clientWidth + tolerance;
+        var hiddenOnLeft = Math.max(0, innerLeft - tableRect.left);
+        var hiddenOnRight = Math.max(0, tableRect.right - innerRight);
+
+        var hasMoreLeft = hasOverflow && hiddenOnLeft > tolerance;
+        var hasMoreRight = hasOverflow && hiddenOnRight > tolerance;
+
+        wrapper.classList.toggle('article-table-fade-active', hasOverflow);
+        wrapper.classList.toggle('article-table-fade-left', hasMoreLeft);
+        wrapper.classList.toggle('article-table-fade-right', hasMoreRight);
+    }
+
+    function initializeTableFades() {
+        document.querySelectorAll('.article-container .table-wrapper').forEach(function (wrapper) {
+            if (wrapper.dataset.articleTableFadeReady === 'true') {
+                updateTableFade(wrapper);
+                return;
+            }
+
+            wrapper.dataset.articleTableFadeReady = 'true';
+            var fadeScrollFrame = 0;
+
+            wrapper.addEventListener('scroll', function () {
+                cancelAnimationFrame(fadeScrollFrame);
+                fadeScrollFrame = requestAnimationFrame(function () {
+                    updateTableFade(wrapper);
+                });
+            }, { passive: true });
+
+            updateTableFade(wrapper);
+        });
+    }
+
+    var fadeFrame = 0;
+    function scheduleTableFadeUpdate() {
+        cancelAnimationFrame(fadeFrame);
+        fadeFrame = requestAnimationFrame(initializeTableFades);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', scheduleTableFadeUpdate, { once: true });
+    } else {
+        scheduleTableFadeUpdate();
+    }
+
+    window.addEventListener('load', scheduleTableFadeUpdate, { once: true });
+    window.addEventListener('resize', scheduleTableFadeUpdate, { passive: true });
+
+    if ('ResizeObserver' in window) {
+        var tableFadeObserver = new ResizeObserver(scheduleTableFadeUpdate);
+        document.querySelectorAll('.article-container .table-wrapper').forEach(function (wrapper) {
+            tableFadeObserver.observe(wrapper);
+        });
+    }
+})();
+
+/* Table horizontal-scroll hints above and below the table — additive only */
+(function () {
+    function createArrow(direction, arrowClass) {
+        var arrow = document.createElement('span');
+        arrow.className = arrowClass + ' article-table-scroll-side-arrow article-table-scroll-side-' + direction;
+        arrow.setAttribute('aria-hidden', 'true');
+
+        var glyph = document.createElement('span');
+        glyph.className = 'article-table-scroll-arrow-single';
+        glyph.textContent = '→';
+
+        arrow.appendChild(glyph);
+        return arrow;
+    }
+
+    function createHint(className, arrowClass, text) {
+        var hint = document.createElement('div');
+        hint.className = className;
+        hint.setAttribute('aria-hidden', 'true');
+
+        var leftArrow = createArrow('left', arrowClass);
+        var rightArrow = createArrow('right', arrowClass);
+
+        var label = document.createElement('span');
+        label.className = 'article-table-scroll-hint-label';
+        label.textContent = text;
+
+        hint.appendChild(leftArrow);
+        hint.appendChild(label);
+        hint.appendChild(rightArrow);
+        return hint;
+    }
+
+    function setHintState(hint, hasMoreLeft, hasMoreRight) {
+        if (!hint) return;
+
+        var visible = hasMoreLeft || hasMoreRight;
+        hint.classList.toggle('article-table-scroll-hint-visible', visible);
+        hint.classList.toggle('article-table-scroll-hint-both', hasMoreLeft && hasMoreRight);
+        hint.classList.toggle('article-table-scroll-hint-left-only', hasMoreLeft && !hasMoreRight);
+        hint.classList.toggle('article-table-scroll-hint-right-only', hasMoreRight && !hasMoreLeft);
+
+        var leftArrow = hint.querySelector('.article-table-scroll-side-left');
+        var rightArrow = hint.querySelector('.article-table-scroll-side-right');
+
+        if (leftArrow) {
+            leftArrow.classList.toggle('article-table-scroll-arrow-visible', hasMoreLeft);
+            leftArrow.classList.toggle('article-table-scroll-direction-left', hasMoreLeft);
+        }
+
+        if (rightArrow) {
+            rightArrow.classList.toggle('article-table-scroll-arrow-visible', hasMoreRight);
+            rightArrow.classList.toggle('article-table-scroll-direction-right', hasMoreRight);
+        }
+    }
+
+    function prepareWrapper(wrapper) {
+        var table = wrapper.querySelector('.responsive-table');
+        if (!table) return;
+
+        var container = wrapper.closest('.article-container');
+        var isPersian = Boolean(container && (container.getAttribute('dir') === 'rtl' || container.getAttribute('lang') === 'fa'));
+        var labelText = isPersian ? 'برای مشاهده ادامه جدول اسکرول کنید' : 'Scroll to see more';
+
+        var top = wrapper.previousElementSibling;
+        if (!top || !top.classList.contains('article-table-scroll-hint')) {
+            top = createHint('article-table-scroll-hint', 'article-table-scroll-hint-arrow', labelText);
+            wrapper.parentNode.insertBefore(top, wrapper);
+        }
+
+        var bottom = wrapper.nextElementSibling;
+        if (!bottom || !bottom.classList.contains('article-table-scroll-hint-bottom')) {
+            bottom = createHint('article-table-scroll-hint-bottom', 'article-table-scroll-hint-bottom-arrow', labelText);
+            wrapper.parentNode.insertBefore(bottom, wrapper.nextSibling);
+        }
+
+        function update() {
+            var wrapperRect = wrapper.getBoundingClientRect();
+            var tableRect = table.getBoundingClientRect();
+            var innerLeft = wrapperRect.left + wrapper.clientLeft;
+            var innerRight = innerLeft + wrapper.clientWidth;
+            var tolerance = 2;
+
+            var hasOverflow = wrapper.scrollWidth > wrapper.clientWidth + tolerance;
+            var hasMoreLeft = hasOverflow && Math.max(0, innerLeft - tableRect.left) > tolerance;
+            var hasMoreRight = hasOverflow && Math.max(0, tableRect.right - innerRight) > tolerance;
+
+            setHintState(top, hasMoreLeft, hasMoreRight);
+            setHintState(bottom, hasMoreLeft, hasMoreRight);
+        }
+
+        if (wrapper.dataset.articleTableHintReady !== 'true') {
+            wrapper.dataset.articleTableHintReady = 'true';
+            var hintScrollFrame = 0;
+
+            wrapper.addEventListener('scroll', function () {
+                cancelAnimationFrame(hintScrollFrame);
+                hintScrollFrame = requestAnimationFrame(update);
+            }, { passive: true });
+        }
+
+        update();
+    }
+
+    function initializeHints() {
+        document.querySelectorAll('.article-container .table-wrapper').forEach(prepareWrapper);
+    }
+
+    var frame = 0;
+    function scheduleUpdate() {
+        cancelAnimationFrame(frame);
+        frame = requestAnimationFrame(initializeHints);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', scheduleUpdate, { once: true });
+    } else {
+        scheduleUpdate();
+    }
+
+    window.addEventListener('load', scheduleUpdate, { once: true });
+    window.addEventListener('resize', scheduleUpdate, { passive: true });
+
+    if ('ResizeObserver' in window) {
+        var hintObserver = new ResizeObserver(scheduleUpdate);
+        document.querySelectorAll('.article-container .table-wrapper').forEach(function (wrapper) {
+            hintObserver.observe(wrapper);
+        });
+    }
+})();
+
